@@ -8,6 +8,7 @@ group = "delta.cion.restcontroller"
 version = projectVersion
 
 repositories {
+	mavenLocal()
     mavenCentral()
 }
 
