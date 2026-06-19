@@ -1,0 +1,32 @@
+# ==================== #
+# By: Lmao stupid Cion #
+# ==================== #
+
+# <= Main =>
+.env
+*.iml
+*.iws
+.zed
+.idea
+
+# <= Sometimes it appears =>
+test/
+
+# <= Gradle =>
+.gradle
+build
+gradlew
+gradlew.bat
+
+# <= Maven =>
+target/
+
+#   >> Contain
+!.gitattributes
+gradle/wrapper/gradle-wrapper.jar
+
+# <= Server =>
+server.properties
+plugins/
+logs/
+crash_logs/
