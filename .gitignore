@@ -30,3 +30,7 @@ server.properties
 plugins/
 logs/
 crash_logs/
+
+
+# <= Dellat =>
+src/main/java/delta/cion/restcontroller/server/SecureHandler.java

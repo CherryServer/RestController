@@ -18,6 +18,8 @@ public class ServerController implements AutoCloseable {
 	private static final Logger LOGGER = LoggerFactory.getLogger(ServerController.class);
 
 	private static HttpServer HTTP_SERVER;
+	private final String SECRET_KEY;
+
 	private static int SERVER_PORT = 0;
 
 	private static final ArrayList<Controller> CONTROLLERS = new ArrayList<>();
@@ -28,9 +30,11 @@ public class ServerController implements AutoCloseable {
 		CONTROLLERS.add(new PlayerController());
 	}
 
-	public ServerController() {
-		if (HTTP_SERVER != null) return;
-		createServer(SERVER_PORT);
+	public ServerController(String secretKey) {
+		this.SECRET_KEY = secretKey;
+
+		if (HTTP_SERVER == null) createServer(SERVER_PORT);
+		else this.close();
 	}
 
 	private void createServer(int port) {
@@ -46,6 +50,10 @@ public class ServerController implements AutoCloseable {
 			LOGGER.error("Cannot create WebAPI. Disabling plugin.", e);
 			RestController.getInstance().onDisable();
 		}
+	}
+
+	public String getSecretKey() {
+		return SECRET_KEY;
 	}
 
 	private void registerControllers() {
