@@ -1,4 +1,4 @@
-package delta.cion.restcontroller.local_api;
+package delta.cion.restcontroller.local_api.request;
 
 public enum Request {
 

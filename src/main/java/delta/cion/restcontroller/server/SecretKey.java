@@ -1,6 +1,9 @@
 package delta.cion.restcontroller.server;
 
+import com.sun.net.httpserver.HttpExchange;
 import delta.cion.restcontroller.RestController;
+import delta.cion.restcontroller.local_api.response.R401;
+import delta.cion.restcontroller.local_api.request.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,8 +39,17 @@ public class SecretKey {
 		}
 	}
 
-	public static boolean validate(String key) {
-		return SECRET_KEY.equalsIgnoreCase(key);
+	public static boolean validate(HttpExchange exchange) {
+		String header = exchange.getRequestHeaders().getFirst("Authorization");
+		if (header == null || !header.startsWith("Bearer "))
+			Response.sendResponse(exchange, 401, new R401().response());
+
+		assert header != null;
+		String secret = header.substring(7);
+
+		if (SECRET_KEY.equalsIgnoreCase(secret)) return true;
+		Response.sendResponse(exchange, 401, new R401().response());
+		return false;
 	}
 
 }

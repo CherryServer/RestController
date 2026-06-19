@@ -1,4 +1,4 @@
-package delta.cion.restcontroller.local_api.response;
+package delta.cion.restcontroller.local_api.request;
 
 import com.sun.net.httpserver.HttpExchange;
 import org.slf4j.Logger;
