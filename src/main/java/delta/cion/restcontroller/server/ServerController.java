@@ -32,7 +32,7 @@ public class ServerController implements AutoCloseable {
 
 	public ServerController(String secretKey) {
 		this.SECRET_KEY = secretKey;
-
+		SecretKey.setSecretKey(this.SECRET_KEY);
 		if (HTTP_SERVER == null) createServer(SERVER_PORT);
 		else this.close();
 	}

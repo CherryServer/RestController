@@ -20,11 +20,11 @@ public class CheckRequest {
 	 * @return boolean lol
 	 */
 	public static boolean checkType(Request request, HttpExchange exchange, ErrorResponse response) {
-		if (request.request.equalsIgnoreCase(exchange.getRequestMethod())) {
+		if (!request.request.equalsIgnoreCase(exchange.getRequestMethod())) {
 			Response.sendResponse(exchange, response.status(), response.response());
-			return false;
+			return true;
 		}
-		return true;
+		return false;
 	}
 
 	/**

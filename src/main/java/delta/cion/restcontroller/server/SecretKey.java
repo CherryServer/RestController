@@ -18,7 +18,12 @@ public class SecretKey {
 	private static String SECRET_KEY = null;
 
 	public static String checkKey(String key) {
-		if (key != null && !key.equalsIgnoreCase("REPLACE_IT")) return key;
+		if (SECRET_KEY != null) return SECRET_KEY;
+		if (key != null && !key.equalsIgnoreCase("REPLACE_IT")) {
+			LOGGER.info("Secret key loaded from config");
+			SECRET_KEY = key;
+			return key;
+		}
 
 		UUID uuid = UUID.randomUUID();
 		try (InputStreamReader reader = new FileReader(RestController.getPropertyName())) {
@@ -39,15 +44,26 @@ public class SecretKey {
 		}
 	}
 
+	public static void setSecretKey(String key) {
+		if (SECRET_KEY != null) return;
+		SECRET_KEY = key;
+	}
+
 	public static boolean validate(HttpExchange exchange) {
 		String header = exchange.getRequestHeaders().getFirst("Authorization");
-		if (header == null || !header.startsWith("Bearer "))
+		if (header == null || !header.startsWith("Bearer ")) {
 			Response.sendResponse(exchange, 401, new R401().response());
+			return false;
+		}
 
-		assert header != null;
 		String secret = header.substring(7);
 
+		LOGGER.debug("Header: \"{}\";", header);
+		LOGGER.debug("Secret: \"{}\";", secret);
+		LOGGER.debug("NeededKey: \"{}\";", SECRET_KEY);
+
 		if (SECRET_KEY.equalsIgnoreCase(secret)) return true;
+
 		Response.sendResponse(exchange, 401, new R401().response());
 		return false;
 	}

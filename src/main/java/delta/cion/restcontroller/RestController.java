@@ -65,9 +65,10 @@ public class RestController extends Plugin {
 		var data = getFromConfig("secret-key");
 		if (data instanceof IOException) {
 			LOGGER.error("Cannot load secret-key from {}!", PROPERTY_NAME, (IOException) data);
-			return SecretKey.checkKey(data.toString());
+			return SecretKey.checkKey(null);
 		}
-		return SecretKey.checkKey(data.toString());
+		String key = data != null ? data.toString() : null;
+		return SecretKey.checkKey(key);
 	}
 
 	public static String getSecretKey() {
