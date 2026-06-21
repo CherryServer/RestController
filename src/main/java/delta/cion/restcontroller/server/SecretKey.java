@@ -26,13 +26,13 @@ public class SecretKey {
 		}
 
 		UUID uuid = UUID.randomUUID();
-		try (InputStreamReader reader = new FileReader(RestController.getPropertyName())) {
+		try (InputStreamReader reader = new FileReader(RestController.getPropertyFile())) {
 			Properties properties = new Properties();
 			properties.load(reader);
 
 			properties.setProperty("secret-key", uuid.toString());
 
-			Writer writer = new FileWriter(RestController.getPropertyName());
+			Writer writer = new FileWriter(RestController.getPropertyFile());
 
 			properties.store(writer, "Changed secret-key to random UUID");
 

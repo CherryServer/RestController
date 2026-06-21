@@ -12,7 +12,9 @@ import java.util.Properties;
 public class RestController extends Plugin {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(RestController.class);
+
 	private static final String PROPERTY_NAME = "webapi.properties";
+	private static File CONFIG_FILE;
 
 	private static ServerController serverController;
 
@@ -22,8 +24,8 @@ public class RestController extends Plugin {
 		return instance;
 	}
 
-	public static String getPropertyName() {
-		return PROPERTY_NAME;
+	public static File getPropertyFile() {
+		return CONFIG_FILE;
 	}
 
 	public RestController(String id, String name, String version) {
@@ -33,6 +35,8 @@ public class RestController extends Plugin {
 	@Override
 	public void onEnable() {
 		instance = this;
+		CONFIG_FILE = new File(getInstance().getPluginDirectory(), PROPERTY_NAME);
+
 		if (!(new File(getPluginDirectory(), PROPERTY_NAME).exists()))
 			saveFromResources(getPluginDirectory(), PROPERTY_NAME);
 		ServerController.setServerPort(getPort());
@@ -41,7 +45,7 @@ public class RestController extends Plugin {
 	}
 
 	private static Object getFromConfig(String key) {
-		try (InputStreamReader reader = new FileReader(PROPERTY_NAME)) {
+		try (InputStreamReader reader = new FileReader(CONFIG_FILE)) {
 			Properties properties = new Properties();
 			properties.load(reader);
 
