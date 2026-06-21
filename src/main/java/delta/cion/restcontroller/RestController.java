@@ -33,8 +33,8 @@ public class RestController extends Plugin {
 	@Override
 	public void onEnable() {
 		instance = this;
-		if (!(new File(PROPERTY_NAME).exists()))
-			saveFromResources(PROPERTY_NAME);
+		if (!(new File(getPluginDirectory(), PROPERTY_NAME).exists()))
+			saveFromResources(getPluginDirectory(), PROPERTY_NAME);
 		ServerController.setServerPort(getPort());
 		LOGGER.info("Trying to start Cherry WebAPI");
 		serverController = new ServerController(getSecret());
