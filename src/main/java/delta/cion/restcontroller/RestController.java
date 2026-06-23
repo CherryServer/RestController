@@ -1,6 +1,6 @@
 package delta.cion.restcontroller;
 
-import delta.cion.cherry.api.plugin.Plugin;
+import delta.cion.tokyo.api.plugin.Plugin;
 import delta.cion.restcontroller.server.SecretKey;
 import delta.cion.restcontroller.server.ServerController;
 import org.slf4j.Logger;
@@ -40,7 +40,7 @@ public class RestController extends Plugin {
 		if (!(new File(getPluginDirectory(), PROPERTY_NAME).exists()))
 			saveFromResources(getPluginDirectory(), PROPERTY_NAME);
 		ServerController.setServerPort(getPort());
-		LOGGER.info("Trying to start Cherry WebAPI");
+		LOGGER.info("Trying to start Tokyo WebAPI");
 		serverController = new ServerController(getSecret());
 	}
 

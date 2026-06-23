@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly("delta.cion.cherry.api:cherry_api:v2.1.0-predemo")
+    compileOnly("delta.cion.tokyo.api:tokyo_api:v2.2.0-predemo")
 }
 
 java {

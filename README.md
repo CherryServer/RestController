@@ -5,7 +5,7 @@
 ---
 
 ```txt
-It's a very pure Rest Controller for Cherry.
+It's a very pure Rest Controller for Tokyo.
 Based on java HttpServer.
 ```
 
